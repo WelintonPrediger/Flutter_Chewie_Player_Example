@@ -61,17 +61,34 @@ class _VideoPageState extends State<VideoPage> {
                     : Chewie(controller: videoStore.chewieController!),
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-              child: Text('Lista de Aulas'),
+              child: Text('Lista de Vídeos', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),),
             ),
             Expanded(
               child: ListView.builder(
                   itemCount: 20,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text('Index: $index'),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                      leading: Container(
+                        height: 80,
+                        width: 90,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: Colors.blue
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.ondemand_video_rounded,
+                            size: 40,
+                            color: Colors.white
+                          ),
+                        ),
+                      ),
+                      title: Text('Vídeo: ${index + 1}'),
+                      subtitle: const Text('Uma breve descrição para o vídeo'),
                     );
                   }
               ),
