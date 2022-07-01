@@ -76,6 +76,13 @@ abstract class VideoStoreBase with Store {
   }
 
   @action
+  Future<void> changeVideo({required int index}) async {
+    await videoPlayerController?.pause();
+    currPlayIndex = index;
+    await initializePlayer();
+  }
+
+  @action
   void restartVideo() {
     videoPlayerController?.pause();
     videoPlayerController?.seekTo(Duration.zero);

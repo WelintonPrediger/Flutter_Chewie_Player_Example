@@ -145,6 +145,14 @@ mixin _$VideoStore on VideoStoreBase, Store {
     return _$toggleVideoAsyncAction.run(() => super.toggleVideo());
   }
 
+  late final _$changeVideoAsyncAction =
+      AsyncAction('VideoStoreBase.changeVideo', context: context);
+
+  @override
+  Future<void> changeVideo({required int index}) {
+    return _$changeVideoAsyncAction.run(() => super.changeVideo(index: index));
+  }
+
   late final _$complaintAsyncAction =
       AsyncAction('VideoStoreBase.complaint', context: context);
 

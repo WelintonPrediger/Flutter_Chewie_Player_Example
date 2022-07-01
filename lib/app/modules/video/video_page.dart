@@ -46,7 +46,7 @@ class _VideoPageState extends State<VideoPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-              height: 230,
+              height: MediaQuery.of(context).size.height / 3.6,
               width: MediaQuery.of(context).size.width,
               child: Center(
                 child: videoStore.chewieController == null
@@ -68,9 +68,10 @@ class _VideoPageState extends State<VideoPage> {
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount: 20,
+                  itemCount: videoStore.srcs.length,
                   itemBuilder: (context, index) {
                     return ListTile(
+                      onTap: () => videoStore.changeVideo(index: index),
                       contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                       leading: Container(
                         height: 80,
