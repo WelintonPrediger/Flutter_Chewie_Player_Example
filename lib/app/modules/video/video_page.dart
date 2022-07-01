@@ -1,4 +1,5 @@
 import 'package:chewie/chewie.dart';
+import 'package:chewie_player_example/app/modules/video/components/components_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -46,7 +47,7 @@ class _VideoPageState extends State<VideoPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-              height: MediaQuery.of(context).size.height / 3.6,
+              height: MediaQuery.of(context).size.height / 3.54,
               width: MediaQuery.of(context).size.width,
               child: Center(
                 child: videoStore.chewieController == null
@@ -69,29 +70,7 @@ class _VideoPageState extends State<VideoPage> {
             Expanded(
               child: ListView.builder(
                   itemCount: videoStore.srcs.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      onTap: () => videoStore.changeVideo(index: index),
-                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                      leading: Container(
-                        height: 80,
-                        width: 90,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          color: Colors.blue
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.ondemand_video_rounded,
-                            size: 40,
-                            color: Colors.white
-                          ),
-                        ),
-                      ),
-                      title: Text('Vídeo: ${index + 1}'),
-                      subtitle: const Text('Uma breve descrição para o vídeo'),
-                    );
-                  }
+                  itemBuilder: (context, index) => ComponentVideoTile(videoStore: videoStore, index: index)
               ),
             )
           ],

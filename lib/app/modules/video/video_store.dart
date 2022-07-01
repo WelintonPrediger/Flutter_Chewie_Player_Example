@@ -42,6 +42,7 @@ abstract class VideoStoreBase with Store {
   @action
   Future<void> initializePlayer() async {
     videoPlayerController = VideoPlayerController.network(srcs[currPlayIndex]);
+    videoPlayerController?.addListener(toggleVideo);
     await videoPlayerController?.initialize();
     createChewieController();
   }
@@ -53,7 +54,6 @@ abstract class VideoStoreBase with Store {
       chewieController = ChewieController(
         videoPlayerController: videoPlayerController!,
         autoPlay: true,
-        looping: true,
         useRootNavigator: false,
         hideControlsTimer: const Duration(seconds: 3),
         additionalOptions: (context) => [
@@ -67,12 +67,16 @@ abstract class VideoStoreBase with Store {
 
   @action
   Future<void> toggleVideo() async {
-    await videoPlayerController?.pause();
-    currPlayIndex += 1;
-    if (currPlayIndex >= srcs.length) {
-      currPlayIndex = 0;
+    if(!videoPlayerController!.value.isPlaying && !videoPlayerController!.value.isBuffering) {
+      if(videoPlayerController?.value.position == videoPlayerController?.value.duration) {
+        chewieController?.exitFullScreen();
+        currPlayIndex += 1;
+        if (currPlayIndex > srcs.length - 1) {
+          currPlayIndex = 0;
+        }
+        await initializePlayer();
+      }
     }
-    await initializePlayer();
   }
 
   @action
